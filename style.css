@@ -10,7 +10,6 @@ header {
     background-color: #333;
     color: #fff;
     padding: 1em;
-    text-align: left; /* Zarovnání vlevo */
 }
 
 nav ul {
@@ -22,23 +21,25 @@ nav ul {
 nav li {
     display: inline;
     margin-right: 20px;
+    border-bottom: 2px solid #fff; /* Podtržení kategorií */
 }
 
-section {
-    margin: 20px;
-    text-align: left; /* Zarovnání vlevo */
+nav a {
+    color: #fff;
+    text-decoration: none;
 }
 
-h1, h2 {
-    color: #333; /* Barva nadpisů */
+section#main-photo {
+    text-align: center; /* Zarovnání fotografie na střed */
+}
+
+section#main-photo img {
+    width: 100%; /* Fotografie bude zabírat 100% šířky rodičovského elementu */
 }
 
 footer {
     background-color: #333;
     color: #fff;
-    text-align: left; /* Zarovnání vlevo */
+    text-align: center; /* Zarovnání textu v patičce na střed */
     padding: 1em;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }
