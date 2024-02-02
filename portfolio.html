@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vojtěch jelínek</title>
+    <style>
+       
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        header a:active {
+            color: white;
+            background-color: transparent;
+        }
+
+        body {
+            font-family: Futura, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-weight: 100;
+        }
+
+
+        main {
+            text-align: left;
+            margin-left: 10px;
+            margin-top: 15px;
+        }
+
+        section {
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+
+        .gallery img {
+            width: calc(10% - 10px);
+            height: auto;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-modal img {
+            max-width: 80vw;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .image-modal {
+            z-index: 1;
+        }
+
+        .modal-content {
+            max-width: 80%;
+            max-height: 80%;
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev {
+            left: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .category-list {
+            font-size: 18px;
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .category-item {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .category-item.active {
+            font-style: italic;
+            color: red;
+        }
+
+         .loading-line {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: red;
+            animation: loadingAnimation 2s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes loadingAnimation {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        header {
+            background-color: black;
+            color: white;
+            text-align: left;
+            padding: 0.1vw;
+            font-weight: 100;
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 0px;
+        }
+
+        .header-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 100;
+            font-style: normal;
+            font-size: 35px;
+            font-weight: 100;
+            transition: color 0.3s, font-weight 0.3s, font-style 0.3s;
+            border: none;
+            margin: 20px;
+            padding: 0;
+            position: relative;
+        }
+
+        .header-links a:hover {
+            color: red;
+            font-weight: 200;
+            position: relative;
+        }
+        .header-links a.active {
+            color: red;
+            font-weight: 200;
+        }
+
+        header h1 a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        header h1 a:hover {
+            color: red;
+        }
+    </style>
+
+    </style>
+</head>
+<body>
+    <body class="loading">
+        <div class="loading-line"></div>
+    
+    <header>
+        <h1><a href="index.html">vojtěch jelínek</a></h1>
+        <div class="header-links">
+            <a href="portfolio.html">portfolio</a>
+            <a href="kontakt.html">kontakt</a>
+            <a href="about.html">about</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="category-list">
+            <div class="category-item active" data-category="category1" onclick="showCategory('category1')">redflag</div>
+            <div class="category-item" data-category="category2" onclick="showCategory('category2')">berlin</div>
+            <div class="category-item" data-category="category3" onclick="showCategory('category3')">ranč</div>
+            <div class="category-item" data-category="category4" onclick="showCategory('category4')">julie</div>
+            <div class="category-item" data-category="category5" onclick="showCategory('category5')">autumn</div>
+            <div class="category-item" data-category="category6" onclick="showCategory('category6')">bologna</div>
+            <div class="category-item" data-category="category7" onclick="showCategory('category7')">zagreb</div>
+
+            
+        </div>
+
+        <section id="category1" class="active">
+            <div class="gallery" id="gallery1">
+                <img src="redflag/RGBF2085.jpg" alt="Red Flag 1" onclick="openModal('redflag/RGBF2085.jpg', 'Project 1 - Image 1', 0)">
+                <img src="redflag/RGBF2098.jpg" alt="Red Flag 2" onclick="openModal('redflag/RGBF2098.jpg', 'Project 1 - Image 2', 1)">
+                <img src="redflag/RGBF2100.jpg" alt="Red Flag 2" onclick="openModal('redflag/RGBF2100.jpg', 'Project 1 - Image 2', 1)">
+                <img src="redflag/RGBF2101.jpg" alt="Red Flag 2" onclick="openModal('redflag/RGBF2101.jpg', 'Project 1 - Image 2', 1)">
+                <img src="redflag/RGBF2113.jpg" alt="Red Flag 2" onclick="openModal('redflag/RGBF2113.jpg', 'Project 1 - Image 2', 1)">
+                <img src="redflag/RGBF2120.jpg" alt="Red Flag 2" onclick="openModal('redflag/RGBF2120.jpg', 'Project 1 - Image 2', 1)">
+                <img src="redflag/RGBF2123.jpg" alt="Red Flag 2" onclick="openModal('redflag/RGBF2123.jpg', 'Project 1 - Image 2', 1)">
+                <img src="redflag/RGBF2139.jpg" alt="Red Flag 2" onclick="openModal('redflag/RGBF2139.jpg', 'Project 1 - Image 2', 1)">
+                <img src="redflag/RGBF2148.jpg" alt="Red Flag 2" onclick="openModal('redflag/RGBF2148.jpg', 'Project 1 - Image 2', 1)">
+                <img src="redflag/RGBF2159.jpg" alt="Red Flag 2" onclick="openModal('redflag/RGBF2159.jpg', 'Project 1 - Image 2', 1)">
+
+            </div>
+        </section>
+
+        <section id="category2">
+            <div class="gallery" id="gallery2">
+                <img src="berlin/20417444-6E16-4935-B62F-0955337F32C4-16082-00000215AFBD38E7.jpeg" alt="Red Flag 1" onclick="openModal('berlin/20417444-6E16-4935-B62F-0955337F32C4-16082-00000215AFBD38E7.jpeg', 'Project 1 - Image 1', 0)">
+                <img src="berlin/316FA19B-74BF-474A-A467-C47C3B6E8450-14622-000002138FFCA8B3.jpeg" alt="Red Flag 2" onclick="openModal('berlin/316FA19B-74BF-474A-A467-C47C3B6E8450-14622-000002138FFCA8B3.jpeg', 'Project 1 - Image 2', 1)">
+                <img src="berlin/AD7FE9DC-DC7B-46A9-B981-A458EAD281BD-16082-000002156C3C4F2C.jpeg" alt="Red Flag 2" onclick="openModal('berlin/AD7FE9DC-DC7B-46A9-B981-A458EAD281BD-16082-000002156C3C4F2C.jpeg', 'Project 1 - Image 2', 2)">
+                <img src="berlin/RGBF1757.jpeg" alt="berlin" onclick="openModal('berlin/RGBF1757.jpeg', 'Project 1 - Image 3', 3)">
+                <img src="berlin/RGBF1758.jpeg" alt="berlin" onclick="openModal('berlin/RGBF1758.jpeg', 'Project 1 - Image 4', 4)">
+                <img src="berlin/RGBF1761.jpeg" alt="berlin" onclick="openModal('berlin/RGBF1761.jpeg', 'Project 1 - Image 5', 5)">
+            </div>
+        </section>
+
+        <section id="category3">
+            <div class="gallery" id="gallery3">
+                <img src="ranč/Fotografie_2023-10-04_212911 3.jpeg" alt="Fidlovačka 1" onclick="openModal('ranč/Fotografie_2023-10-04_212911 3.jpeg', 'Project 2 - Image 1', 0)">
+                <img src="ranč/Fotografie_2023-10-04_212911.jpeg" alt="Fidlovačka 2" onclick="openModal('ranč/Fotografie_2023-10-04_212911.jpeg', 'Project 2 - Image 2', 1)">
+                <img src="ranč/Fotografie_2023-10-04_212911_1 2.jpeg" alt="Fidlovačka 2" onclick="openModal('ranč/Fotografie_2023-10-04_212911_1 2.jpeg', 'Project 2 - Image 2', 1)">
+                <img src="ranč/Fotografie_2023-10-04_212911_1 3.jpeg" alt="Fidlovačka 2" onclick="openModal('ranč/Fotografie_2023-10-04_212911_1 3.jpeg', 'Project 2 - Image 2', 1)">
+                <img src="ranč/Fotografie_2023-10-04_212911_1 4.jpeg" alt="Fidlovačka 2" onclick="openModal('ranč/Fotografie_2023-10-04_212911_1 4.jpeg', 'Project 2 - Image 2', 1)">
+                <img src="ranč/Fotografie_2023-10-04_212911_2.jpeg" alt="Fidlovačka 2" onclick="openModal('ranč/Fotografie_2023-10-04_212911_2.jpeg', 'Project 2 - Image 2', 1)">
+
+            </div>
+        </section>
+
+        <section id="category4">
+            <div class="gallery" id="gallery4">
+                <img src="julie/RGBF2334.jpeg" alt="Julie 2" onclick="openModal('julie/RGBF2334.jpeg', 'Project 3 - Image 2', 1)">
+                <img src="julie/RGBF2355.jpeg" alt="Julie 3" onclick="openModal('julie/RGBF2355.jpeg', 'Project 3 - Image 3', 2)">
+                <img src="julie/RGBF2363.jpeg" alt="Julie 1" onclick="openModal('julie/RGBF2363.jpeg', 'Project 3 - Image 1', 0)">
+                <img src="julie/RGBF2389.jpeg" alt="Julie 1" onclick="openModal('julie/RGBF2389.jpeg', 'Project 3 - Image 1', 0)">
+                <img src="julie/RGBF2400.jpeg" alt="Julie 1" onclick="openModal('julie/RGBF2400.jpeg', 'Project 3 - Image 1', 0)">
+                <img src="julie/RGBF2403.jpeg" alt="Julie 1" onclick="openModal('julie/RGBF2403.jpeg', 'Project 3 - Image 1', 0)">
+                <img src="julie/RGBF2420.jpeg" alt="Julie 1" onclick="openModal('julie/RGBF2420.jpeg', 'Project 3 - Image 1', 0)">
+
+            </div>
+        </section>
+
+        <section id="category5">
+            <div class="gallery" id="gallery5">
+                <img src="autumn/Fotografie_2023-12-01_232232.jpeg" alt="Sofie 1" onclick="openModal('autumn/Fotografie_2023-12-01_232232.jpeg', 'Project 4 - Image 1', 0)">
+                <img src="autumn/Fotografie_2023-12-01_232232_1 2.jpeg" alt="Sofie 2" onclick="openModal('autumn/Fotografie_2023-12-01_232232_1 2.jpeg', 1)">
+                <img src="autumn/Fotografie_2023-12-01_232232_1 3.jpeg" alt="Sofie 3" onclick="openModal('autumn/Fotografie_2023-12-01_232232_1 3.jpeg', 2)">
+                <img src="autumn/Fotografie_2023-12-01_232232_1.jpeg" alt="Sofie 3" onclick="openModal('autumn/Fotografie_2023-12-01_232232_1.jpeg', 2)">
+                <img src="autumn/Fotografie_2023-12-01_232232_2 2.jpeg" alt="Sofie 3" onclick="openModal('autumn/Fotografie_2023-12-01_232232_2 2.jpeg', 2)">
+                <img src="autumn/Fotografie_2023-12-01_232232_2.jpeg" alt="Sofie 3" onclick="openModal('autumn/Fotografie_2023-12-01_232232_2.jpeg', 2)">
+                <img src="autumn/Fotografie_2023-12-01_232232_3.jpeg" alt="Sofie 3" onclick="openModal('autumn/Fotografie_2023-12-01_232232_3.jpeg', 2)">
+
+            </div>
+        </section>
+
+        <section id="category6">
+            <div class="gallery" id="gallery6">
+                <img src="bologna/F5E17A4D-90FD-469E-B422-FDA868633F7E-2581-000000A35A62EBD6-min.jpg" alt="Sofie 1" onclick="openModal('bologna/F5E17A4D-90FD-469E-B422-FDA868633F7E-2581-000000A35A62EBD6-min.jpg', 'Project 4 - Image 1', 0)">
+                <img src="bologna/RGBF5351-min.jpg" alt="Sofie 1" onclick="openModal('bologna/RGBF5351-min.jpg', 'Project 4 - Image 1', 0)">
+                <img src="bologna/RGBF5469-min.jpg" alt="Sofie 1" onclick="openModal('bologna/RGBF5469-min.jpg', 'Project 4 - Image 1', 0)">
+                <img src="bologna/RGBF5519-min.jpg" alt="Sofie 1" onclick="openModal('bologna/RGBF5519-min.jpg', 'Project 4 - Image 1', 0)">
+                <img src="bologna/RGBF5564-min.jpg" alt="Sofie 1" onclick="openModal('bologna/RGBF5564-min.jpg', 'Project 4 - Image 1', 0)">
+                <img src="bologna/RGBF5576-min.jpg" alt="Sofie 1" onclick="openModal('bologna/RGBF5576-min.jpg', 'Project 4 - Image 1', 0)">
+                <img src="bologna/RGBF5583-2-min.jpg" alt="Sofie 1" onclick="openModal('bologna/RGBF5583-2-min.jpg', 'Project 4 - Image 1', 0)">
+
+            </div>
+        </section>
+
+        <section id="category7">
+            <div class="gallery" id="gallery6">
+                <img src="zagreb/FBD742E7-C480-4157-9106-9F313C6FD421-61336-000007A4CF1AF512.jpg" alt="Sofie 1" onclick="openModal('zagreb/FBD742E7-C480-4157-9106-9F313C6FD421-61336-000007A4CF1AF512.jpg', 'Project 4 - Image 1', 0)">
+                <img src="zagreb/RGBF1954.jpg" alt="Sofie 1" onclick="openModal('zagreb/RGBF1954.jpg', 'Project 4 - Image 1', 0)">
+                <img src="zagreb/RGBF1961.jpg" alt="Sofie 1" onclick="openModal('zagreb/RGBF1961.jpg', 'Project 4 - Image 1', 0)">
+                <img src="zagreb/RGBF1995.jpg" alt="Sofie 1" onclick="openModal('zagreb/RGBF1995.jpg', 'Project 4 - Image 1', 0)">
+                <img src="zagreb/RGBF2027.jpg" alt="Sofie 1" onclick="openModal('zagreb/RGBF2027.jpg', 'Project 4 - Image 1', 0)">
+
+            </div>
+        </section>
+
+       
+    </main>
+
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <img id="modalImage" alt="">
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+    </div>
+
+    <script>
+        let modalIndex = 0;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            
+            showCategory('category1');
+        });
+
+        function showCategory(categoryId) {
+            
+            const allCategories = document.querySelectorAll('section');
+            allCategories.forEach(category => {
+                category.classList.remove('active');
+            });
+
+            
+            closeModal();
+
+           
+            const selectedCategory = document.getElementById(categoryId);
+            if (selectedCategory) {
+                selectedCategory.classList.add('active');
+            }
+
+            
+            const allCategoryItems = document.querySelectorAll('.category-item');
+            allCategoryItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            const selectedCategoryItem = document.querySelector('.category-item[data-category="' + categoryId + '"]');
+            if (selectedCategoryItem) {
+                selectedCategoryItem.classList.add('active');
+            }
+        }
+
+        function closeModal() {
+            
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+        function openModal(imageSrc, imageAlt, index) {
+            modalIndex = index;
+            document.getElementById("modalImage").src = imageSrc;
+            document.getElementById("modalImage").alt = imageAlt;
+            document.getElementById("imageModal").style.display = "flex";
+        }
+
+        function plusSlides(n) {
+            modalIndex += n;
+            showImageAtIndex(modalIndex);
+        }
+
+        function showImageAtIndex(index) {
+            const activeCategoryId = getActiveCategoryId();
+            const gallery = document.getElementById(activeCategoryId);
+            const images = gallery.getElementsByTagName('img');
+
+            if (index >= images.length) {
+                modalIndex = 0;
+            } else if (index < 0) {
+                modalIndex = images.length - 1;
+            } else {
+                modalIndex = index;
+            }
+
+            const imageSrc = images[modalIndex].src;
+            const imageAlt = images[modalIndex].alt;
+
+            document.getElementById("modalImage").src = imageSrc;
+            document.getElementById("modalImage").alt = imageAlt;
+        }
+
+        function getActiveCategoryId() {
+            const activeCategory = document.querySelector('.category-item.active');
+            if (activeCategory) {
+                return activeCategory.dataset.category;
+            }
+            
+            return 'category1';
+        }
+
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                document.body.classList.remove("loading");
+    
+                
+                const loadingLine = document.querySelector('.loading-line');
+                loadingLine.style.animation = 'none';
+            }, 1000); 
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        
+        var currentLocation = window.location.pathname.split("/").pop().split(".")[0];
+
+        
+        var links = document.querySelectorAll('.header-links a');
+        links.forEach(function (link) {
+            var linkLocation = link.getAttribute('href').split("/").pop().split(".")[0];
+            if (linkLocation === currentLocation) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeModal();
+            } else if (event.key === "ArrowLeft") {
+                plusSlides(-1);
+            } else if (event.key === "ArrowRight") {
+                plusSlides(1);
+            }
+        });
+
+        window.addEventListener("click", function (event) {
+            if (event.target === document.getElementById("imageModal")) {
+                closeModal();
+            }
+        });
+
+    </script
+</body>
+</html>

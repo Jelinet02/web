@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vojtěch jelínek</title>
+    <style>
+     
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        header a:active {
+            color: white; 
+            background-color: transparent; 
+        }
+
+        body {
+            font-family: Futura, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: black;
+            color: white;
+            text-align: left;
+            padding: 0.1vw;
+            font-weight: 300;
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 0px;
+        }
+
+        .header-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 100;
+            font-style: normal;
+            font-size: 35px;
+            transition: color 0.3s, font-weight 0.3s, font-style 0.3s;
+            border: none;
+            margin: 20px;
+            padding: 0;
+            position: relative;
+        }
+
+        .header-links a:hover {
+            color: red;
+            font-weight: 200;
+            position: relative;
+        }
+
+
+        main {
+            margin-left: 10px;
+            text-align: left;
+            font-style: italic;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .contact-info {
+            margin-top: 0px;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        .contact-info a {
+            margin-top: 0px;
+            font-size: 18px;
+            text-align: left;
+            color: black;
+        }
+
+        .contact-info a:active {
+            margin-top: 0px;
+            font-size: 18px;
+            text-align: left;
+            color: black;
+        }
+
+
+        .loading-line {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: red;
+            animation: loadingAnimation 2s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes loadingAnimation {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+        .header-links a.active {
+            color: red;
+            font-weight: 200;
+        }
+
+        header h1 a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        header h1 a:hover {
+            color: red;
+        }
+
+
+    </style>
+</head>
+<body class="loading">
+    <div class="loading-line"></div>
+    <header>
+        <h1><a href="index.html">vojtěch jelínek</a></h1>
+        <div class="header-links">
+            <a href="portfolio.html">portfolio</a>
+            <a href="kontakt.html">kontakt</a>
+            <a href="about.html">about</a>
+        </div>
+    </header>
+
+    <main>
+        <div class= contact-info>
+       <p>balblabla</p>
+        </div>
+    </main>
+
+
+</body>
+<script>
+   
+    window.addEventListener("load", function () {
+        setTimeout(function () {
+            document.body.classList.remove("loading");
+
+           
+            const loadingLine = document.querySelector('.loading-line');
+            loadingLine.style.animation = 'none';
+        }, 500); 
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var currentLocation = window.location.pathname.split("/").pop().split(".")[0];
+
+        var links = document.querySelectorAll('.header-links a');
+        links.forEach(function (link) {
+            var linkLocation = link.getAttribute('href').split("/").pop().split(".")[0];
+            if (linkLocation === currentLocation) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+</html>

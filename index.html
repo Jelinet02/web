@@ -3,36 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <title>vojtěch jelínek</title>
     <style>
         body {
-            font-family: 'Futura', sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #000; /* Bílé pozadí */
-            color: #fff; /* Černý text */
+            font-family: Futura, sans-serif;
+            overflow: hidden;
         }
+
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: left;
+            height: calc(100vh - 3vw);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .center-box {
+            text-align: left;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            padding-left: 10px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 1.5vw;
+            background-color: black;
+            color: white;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        header {
+            background-color: black;
+            color: white;
+            text-align: left;
+            padding: 0.1vw;
+            font-weight: 300;
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 0px;
+        }
+
+        .header-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 100;
+            font-style: normal;
+            font-size: 35px;
+            transition: color 0.3s, font-weight 0.3s, font-style 0.3s;
+            border: none;
+            margin: 20px;
+            padding: 0;
+            position: relative;
+        }
+
+        .header-links a:hover {
+            color: red;
+            font-weight: 200;
+            position: relative;
+        }
+
+        .loading-line {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: red;
+            animation: loadingAnimation 2s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes loadingAnimation {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        header h1 a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        header h1 a:hover {
+            color: red;
+        }
+
     </style>
-    <title>Fotografické Portfolio</title>
 </head>
-<body>
+<body class="loading">
+    <div class="loading-line"></div>
+
     <header>
-        <nav>
-            <ul>
-                <li><a href="#contact">Kontakt</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#about">O mně</a></li>
-            </ul>
-        </nav>
+        <h1>vojtěch jelínek</h1>
+        <div class="header-links">
+            <a href="portfolio.html">portfolio</a>
+            <a href="kontakt.html">kontakt</a>
+            <a href="about.html">about</a>
+        </div>
     </header>
 
-    <section id="main-photo">
-        <!-- Zde můžete vložit jednu velkou fotografii -->
-        <img src="main-photo.jpg" alt="Hlavní fotografie">
-    </section>
+    <main id="home">
+        <div class="center-box">
+            <video autoplay loop muted>
+                <source src="Untitled.mov" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </main>
 
     <footer>
-        <p>&copy; 2024 Fotografické Portfolio. Všechna práva vyhrazena.</p>
+        
     </footer>
+
+    <script>
+        
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                document.body.classList.remove("loading");
+    
+                
+                const loadingLine = document.querySelector('.loading-line');
+                loadingLine.style.animation = 'none';
+            }, 500); 
+        });
+    </script>
 </body>
 </html>
